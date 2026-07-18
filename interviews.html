@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="icon" href="assets/img/favicon.png" type="image/png" sizes="64x64" />
+  <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png" />
+  <title>訪談影片系列｜ARKKO</title>
+  <meta name="description" content="ARKKO 訪談影片系列，可嵌入 Instagram、Threads 貼文與影片。" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&family=Noto+Serif+TC:wght@600;700;900&family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body data-page="interviews">
+  <header data-site-header></header>
+
+  <section class="masthead">
+    <div class="wrap masthead__inner">
+      <div class="kicker kicker--accent">Interview Series</div>
+      <h1 class="masthead__lead">讓人物自己說。</h1>
+      <p class="masthead__sub">
+        ARKKO 的訪談影片系列，圍繞具體的人與真實的使用情境展開。以下每一則都可直接嵌入 Instagram 或 Threads 的原始貼文與影片。
+      </p>
+    </div>
+  </section>
+
+  <main class="wrap section">
+    <div class="sec-head"><h2>最新影片</h2><span class="kicker no-tick">IG · Threads · Reels</span></div>
+    <div class="embed-grid" data-interviews></div>
+
+    <hr class="rule rule--ink mt-l" />
+    <div class="section max-prose">
+      <div class="kicker">How to embed</div>
+      <p class="mt-s" style="color:var(--ink-soft)">
+        要放上真實貼文時，只要在 <code>assets/js/data.js</code> 的 <code>INTERVIEWS</code> 陣列裡，把該筆的
+        <code>type</code> 改成 <code>"iframe"</code>、<code>url</code> 填入 IG／Threads 的
+        embed 連結即可，佔位框會自動換成真實影片。
+      </p>
+    </div>
+  </main>
+
+  <footer data-site-footer></footer>
+  <script src="assets/js/data.js"></script>
+  <script src="assets/js/app.js"></script>
+</body>
+</html>

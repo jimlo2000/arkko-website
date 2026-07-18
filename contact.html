@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="icon" href="assets/img/favicon.png" type="image/png" sizes="64x64" />
+  <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png" />
+  <title>合作提案｜ARKKO</title>
+  <meta name="description" content="與 ARKKO 洽談品牌合作、業配企劃與內容提案。" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&family=Noto+Serif+TC:wght@600;700;900&family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body data-page="contact">
+  <header data-site-header></header>
+
+  <section class="masthead">
+    <div class="wrap masthead__inner">
+      <div class="kicker kicker--accent">Pitch &amp; Partnership</div>
+      <h1 class="masthead__lead">聊聊你的企劃。</h1>
+      <p class="masthead__sub">
+        填一下需求，我們會盡快回信。若偏好直接寄信，也可以寫到
+        <a href="mailto:arkkoshopp@gmail.com" style="border-bottom:1px solid var(--accent)">arkkoshopp@gmail.com</a>。
+      </p>
+    </div>
+  </section>
+
+  <main class="wrap section">
+    <div style="display:grid;gap:var(--gap);grid-template-columns:1fr">
+      <div>
+        <div class="form-ok" data-form-ok hidden>
+          已為你開啟郵件草稿。若沒有自動彈出，請直接寄到 arkkoshopp@gmail.com。
+        </div>
+        <form data-contact-form class="mt-s">
+          <div class="form-grid">
+            <div class="field">
+              <label for="name">姓名 *</label>
+              <input id="name" name="name" required placeholder="王小明" />
+            </div>
+            <div class="field">
+              <label for="company">公司 / 品牌</label>
+              <input id="company" name="company" placeholder="品牌名稱" />
+            </div>
+            <div class="field">
+              <label for="email">聯絡信箱 *</label>
+              <input id="email" name="email" type="email" required placeholder="you@brand.com" />
+            </div>
+            <div class="field">
+              <label for="topic">合作類型 *</label>
+              <select id="topic" name="topic" required></select>
+            </div>
+            <div class="field full">
+              <label for="budget">預算範圍（選填）</label>
+              <input id="budget" name="budget" placeholder="例如：NT$ 100,000 – 300,000" />
+            </div>
+            <div class="field full">
+              <label for="message">需求說明 *</label>
+              <textarea id="message" name="message" required placeholder="簡述你的品牌、目標、期待的內容形式與時程。"></textarea>
+            </div>
+          </div>
+          <div class="mt-m" style="display:flex;align-items:center;gap:18px;flex-wrap:wrap">
+            <button class="btn" type="submit">送出提案 →</button>
+            <span class="form-note">送出後將開啟你的郵件程式，內容已為你整理成草稿。</span>
+          </div>
+        </form>
+      </div>
+
+      <hr class="rule" />
+
+      <div style="display:grid;gap:24px;grid-template-columns:1fr">
+        <div>
+          <div class="kicker">Email</div>
+          <p class="mt-s" style="font-family:var(--mono)">arkkoshopp@gmail.com</p>
+        </div>
+        <div>
+          <div class="kicker">Social</div>
+          <p class="mt-s">
+            <a href="https://instagram.com" target="_blank" rel="noopener" style="border-bottom:1px solid var(--line)">Instagram ↗</a>
+            &nbsp;·&nbsp;
+            <a href="https://threads.net" target="_blank" rel="noopener" style="border-bottom:1px solid var(--line)">Threads ↗</a>
+          </p>
+        </div>
+        <div>
+          <div class="kicker">適合的合作</div>
+          <p class="mt-s" style="color:var(--ink-soft)">
+            品牌合作與業配企劃、訪談影片系列、開箱 Reels（先拆再說），以及各內容支柱的原生內容。
+          </p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer data-site-footer></footer>
+  <script src="assets/js/data.js"></script>
+  <script src="assets/js/app.js"></script>
+</body>
+</html>
