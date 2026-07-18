@@ -1,0 +1,5 @@
+# Netlify 部署設定
+# 每次送印前先把後台發的文章（content/articles/*.md）轉進網站
+[build]
+  command = "node tools/build-content.mjs"
+  publish = "."

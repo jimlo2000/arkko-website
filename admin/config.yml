@@ -1,29 +1,30 @@
 # =========================================================
 # ARKKO 發文後台設定
-# 階段 1：先用 test-repo（試用模式），不需帳號、不會真的存檔，
-#         純粹讓 Jim 摸摸看發文頁面長怎樣、順不順手。
-# 之後上線時，只要把下面 backend 換成正式的即可。
+# 正式模式：文章存進 GitHub 倉庫（jimlo2000/arkko-website），
+# 存檔後 Netlify 會自動重新部署，文章就出現在 arkko.tw。
+# 登入方式：GitHub 帳號授權（OAuth 設定在 Netlify 的 Access & security）。
 # =========================================================
 backend:
-  name: test-repo
+  name: github
+  repo: jimlo2000/arkko-website
+  branch: main
 
-# 圖片會存到這個資料夾；文章裡引用時的路徑用 assets/img
-media_folder: "website/assets/img"
-public_folder: "assets/img"
+# 圖片存進倉庫的 assets/img/uploads；網站上引用路徑為 /assets/img/uploads
+media_folder: "assets/img/uploads"
+public_folder: "/assets/img/uploads"
 
 locale: "zh_Hant"
 
-# 介面文字：讓按鈕看起來友善一點
-site_url: /
-display_url: /
+site_url: https://arkko.tw
+display_url: https://arkko.tw
 
 collections:
   - name: "articles"
     label: "文章"
     label_singular: "文章"
-    folder: "website/content/articles"
+    folder: "content/articles"
     create: true
-    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    slug: "{{year}}{{month}}{{day}}-{{slug}}"
     summary: "{{title}}"
     fields:
       - { name: "category", label: "分類", widget: "select", options: [
