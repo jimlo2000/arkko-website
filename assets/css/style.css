@@ -286,8 +286,8 @@ a { color: inherit; text-decoration: none; }
   font-size: 13px; color: var(--muted); align-items: center;
 }
 .article-byline .byline { color: var(--ink); font-weight: 600; }
-/* 文章大圖：不裁切、完整顯示。橫式滿版；直式置中配墨色底（雜誌式） */
-.article-hero { background: var(--ink); overflow: hidden; }
+/* 文章大圖：不裁切、完整顯示。橫式滿版；直式置中、留白底（雜誌式） */
+.article-hero { background: transparent; overflow: hidden; }
 .article-hero .ph { aspect-ratio: 3/2; }
 .article-hero img {
   display: block; margin: 0 auto;
@@ -314,7 +314,6 @@ a { color: inherit; text-decoration: none; }
   display: block; margin: 0 auto;
   width: auto; max-width: 100%;
   height: auto; max-height: 78vh;
-  background: var(--ink);
 }
 .prose figcaption { font-size: 12px; color: var(--muted); margin-top: 8px; }
 .prose .dropcap::first-letter {
