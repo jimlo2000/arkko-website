@@ -141,7 +141,8 @@
   .card--feature .card__media { aspect-ratio: 16/7; }
 }
 
-/* 桌機：Dazed 式不規則拼貼格——大小塊交錯的圖牆 */
+/* 桌機：Dazed 式不規則拼貼格——依每張照片的直式/橫式自動排列組合
+   （app.js 讀圖片長寬後在卡片上標 data-orient） */
 @media (min-width: 720px) {
   .feed {
     display: grid; grid-template-columns: repeat(4, 1fr);
@@ -149,11 +150,19 @@
   }
   .feed .card { grid-template-columns: 1fr; }
   .feed .card .card__media { aspect-ratio: auto; height: 100%; }
-  /* 一般卡片半寬；每隔幾張出現窄直塊與高塊，打破規律 */
+  /* 預設（判定中）：半寬 */
   .feed .card { grid-column: span 2; }
-  .feed .card:nth-child(4n+3) { grid-row: span 2; }
-  .feed .card:nth-child(8n+6) { grid-column: span 1; }
-  .feed .card:nth-child(8n+7) { grid-column: span 1; }
+  /* 橫式照片：躺寬（2 欄 × 1 列） */
+  .feed .card[data-orient="landscape"] { grid-column: span 2; grid-row: span 1; }
+  /* 直式照片：站高（1 欄 × 2 列），完整展現直圖 */
+  .feed .card[data-orient="portrait"] { grid-column: span 1; grid-row: span 2; }
+  /* 方形照片：正方塊（1 欄 × 1 列） */
+  .feed .card[data-orient="square"] { grid-column: span 1; grid-row: span 1; }
+  /* 窄卡片標題縮小保持可讀 */
+  .feed .card[data-orient="portrait"] .card__title,
+  .feed .card[data-orient="square"] .card__title { font-size: clamp(16px, 1.8vw, 22px); }
+  .feed .card[data-orient="square"] .card__body { padding: 36px 14px 12px; }
+  .feed .card[data-orient="portrait"] .card__body { padding: 48px 14px 14px; }
 }
 
 /* ---------- 頁尾 ---------- */

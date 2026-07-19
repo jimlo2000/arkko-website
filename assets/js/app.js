@@ -196,8 +196,24 @@
       }
       html += `<div class="feed">${rest.map((a) => articleCard(a)).join("")}</div>`;
       mount.innerHTML = html;
+      tagOrientations(mount);
     }
     paint();
+  }
+
+  // 讀取每張封面圖的長寬，標記直式/橫式/方形——
+  // 讓圖牆版型（theme-c）能依照片方向自動排列組合。
+  function tagOrientations(scope) {
+    scope.querySelectorAll(".feed .card").forEach((card) => {
+      const img = card.querySelector(".card__media img");
+      if (!img) { card.dataset.orient = "landscape"; return; } // 無圖（漸層佔位）當橫式
+      const set = () => {
+        const r = img.naturalWidth / img.naturalHeight;
+        card.dataset.orient = r > 1.15 ? "landscape" : r < 0.87 ? "portrait" : "square";
+      };
+      if (img.complete && img.naturalWidth) set();
+      else img.addEventListener("load", set, { once: true });
+    });
   }
 
   /* ---------- ARTICLE ---------- */
