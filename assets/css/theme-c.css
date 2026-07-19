@@ -17,62 +17,36 @@
   --accent-ink: #d40000;
 }
 
-/* ---------- 跑馬燈：紅底白字 ---------- */
-.ticker {
-  background: var(--accent); color: #fff;
-  overflow: hidden; white-space: nowrap;
-}
-.ticker__inner {
-  display: inline-block; padding: 8px 0;
-  font-family: var(--mono); font-size: 11px; font-weight: 700;
-  letter-spacing: .32em; text-transform: uppercase;
-  animation: tick 22s linear infinite;
-}
-@keyframes tick { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+/* ---------- 跑馬燈：牆模式收起 ---------- */
+.ticker { display: none; }
 
-/* ---------- 頁首 ---------- */
-.site-header { border-bottom: 3px solid #000; background: #fff; }
-.brand__img { height: 36px; }
-.nav a { font-weight: 700; letter-spacing: .12em; text-transform: uppercase; font-size: 12px; }
-.nav a[aria-current="page"]::after, .nav a:hover::after { background: var(--accent); }
-.nav__cta { border-width: 2px; }
-.nav__cta:hover { background: var(--accent); border-color: var(--accent); color: #fff; }
+/* ---------- 頁首：乾淨、無框、像 App 頂欄 ---------- */
+.site-header { border-bottom: 1px solid #eee; background: #fff; }
+.brand__img { height: 32px; }
+.nav a { font-weight: 700; font-size: 14px; letter-spacing: 0; text-transform: none; color: #111; }
+.nav a[aria-current="page"]::after, .nav a:hover::after { display: none; }
+.nav a[aria-current="page"] { color: #000; }
+.nav__cta {
+  border: 0 !important; background: var(--accent); color: #fff;
+  border-radius: 999px; padding: 10px 18px !important;
+}
+.nav__cta:hover { background: #d40000; color: #fff; }
 
-/* ---------- masthead：黑到底、貼邊、密 ---------- */
-.masthead { border-bottom: 3px solid #000; }
-.c-kicker {
-  font-family: var(--mono); font-size: 11px; letter-spacing: .3em;
-  text-transform: uppercase; color: var(--accent); font-weight: 700;
-  margin: 30px 0 6px; padding: 0;
-}
-.c-lead {
-  margin: 4px 0 0 -0.04em;
-  font-size: clamp(42px, 9vw, 118px);
-  line-height: 1.0; letter-spacing: -0.05em;
-}
-.c-lead .c-serif, .c-lead .c-black { font-family: var(--sans); font-weight: 900; }
-.c-lead .c-red { color: var(--accent); }
-.c-sub {
-  max-width: 44ch; color: var(--ink-soft); font-size: clamp(14px, 2vw, 16px);
-  margin: 22px 0 0; line-height: 1.75;
-}
-.c-stamp {
-  display: inline-block; margin: 24px 0 34px;
-  background: #000; color: #fff;
-  font-family: var(--mono); font-size: 11px; font-weight: 700;
-  letter-spacing: .24em; text-transform: uppercase;
-  padding: 8px 14px;
-}
+/* ---------- masthead：整個收起，開站直接進瀑布 ---------- */
+.masthead { display: none; }
 
-/* ---------- 分類 chip ---------- */
-.filter { border-bottom: 3px solid #000; }
+/* ---------- 分類 chip：Pinterest 式膠囊 ---------- */
+.filter { border-bottom: 0; background: #fff; }
+.filter__scroll { padding: 14px 0 10px; gap: 10px; }
 .chip {
-  border: 2px solid #000; color: #000;
-  font-weight: 700; letter-spacing: .04em;
+  border: 0; background: #efefef; color: #111;
+  font-weight: 700; letter-spacing: 0; font-size: 14px;
+  padding: 10px 16px; border-radius: 999px;
+  transition: background .15s;
 }
-.chip:hover { background: #000; color: #fff; }
-.chip[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: #fff; }
-.chip small { opacity: 1; color: inherit; }
+.chip:hover { background: #e2e2e2; color: #111; }
+.chip[aria-pressed="true"] { background: #111; color: #fff; }
+.chip small { opacity: .55; color: inherit; }
 
 /* ---------- 文章流：Pinterest 瀑布流 ----------
    每張圖保持原始比例（直圖自然長、橫圖自然短、零裁切），
@@ -170,5 +144,5 @@
 }
 
 /* ---------- 頁尾 ---------- */
-.site-footer { border-top: 3px solid #000; }
+.site-footer { border-top: 1px solid #eee; }
 .fcol a:hover { color: var(--accent); }

@@ -185,10 +185,11 @@
         mount.innerHTML = `<div class="empty">此分類目前沒有文章。</div>`;
         return;
       }
-      // featured first only when showing all
+      // featured first only when showing all（牆模式 data-wall：全部平等進瀑布，不設精選大卡）
       let html = "";
       let rest = list;
-      if (!active) {
+      const wallMode = document.body.hasAttribute("data-wall");
+      if (!active && !wallMode) {
         const feat = list.find((a) => a.featured) || list[0];
         html += articleCard(feat, { feature: true });
         html += `<hr class="rule rule--ink">`;
