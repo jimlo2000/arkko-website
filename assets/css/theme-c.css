@@ -1,93 +1,114 @@
 /* =========================================================
-   ARKKO — Theme C「狂放編輯台」
-   概念：歐陸獨立誌 — 超大字標貼邊、不對稱、粗黑框線、
-   跑馬燈、期刊編號、反白 hover。紙感底色不變、信號紅放大膽。
+   ARKKO — Theme C v2「032c 系」
+   概念：冷、密、紅 — 純白底、黑到底的粗黑體、
+   紅色當系統（編號/日期/連結/hover 全紅）、索引式文章流。
    demo 用：疊在 style.css 之後載入。
    ========================================================= */
 
-/* ---------- 跑馬燈 ---------- */
+:root {
+  --paper: #ffffff;
+  --paper-pure: #ffffff;
+  --ink: #000000;
+  --ink-soft: #1a1a1a;
+  --line: #e6e6e6;
+  --line-strong: #000000;
+  --muted: #777;
+  --accent: #ff0000;      /* 032c 式正紅 */
+  --accent-ink: #d40000;
+}
+
+/* ---------- 跑馬燈：紅底白字 ---------- */
 .ticker {
-  background: var(--ink); color: var(--paper);
+  background: var(--accent); color: #fff;
   overflow: hidden; white-space: nowrap;
-  border-bottom: 4px solid var(--accent);
 }
 .ticker__inner {
-  display: inline-block; padding: 9px 0;
-  font-family: var(--mono); font-size: 11px;
+  display: inline-block; padding: 8px 0;
+  font-family: var(--mono); font-size: 11px; font-weight: 700;
   letter-spacing: .32em; text-transform: uppercase;
   animation: tick 22s linear infinite;
 }
 @keyframes tick { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 
-/* ---------- 頁首加重 ---------- */
-.site-header { border-bottom: 4px solid var(--ink); }
-.brand__img { height: 38px; }
-.nav a { font-weight: 700; letter-spacing: .1em; text-transform: uppercase; font-size: 12px; }
+/* ---------- 頁首 ---------- */
+.site-header { border-bottom: 3px solid #000; background: #fff; }
+.brand__img { height: 36px; }
+.nav a { font-weight: 700; letter-spacing: .12em; text-transform: uppercase; font-size: 12px; }
+.nav a[aria-current="page"]::after, .nav a:hover::after { background: var(--accent); }
 .nav__cta { border-width: 2px; }
+.nav__cta:hover { background: var(--accent); border-color: var(--accent); color: #fff; }
 
-/* ---------- 狂放 masthead ---------- */
-.masthead { border-bottom: 4px solid var(--ink); }
+/* ---------- masthead：黑到底、貼邊、密 ---------- */
+.masthead { border-bottom: 3px solid #000; }
 .c-kicker {
-  font-family: var(--mono); font-size: 12px; letter-spacing: .3em;
-  text-transform: uppercase; color: var(--ink);
-  margin: 34px 0 10px; border-left: 6px solid var(--accent); padding-left: 12px;
+  font-family: var(--mono); font-size: 11px; letter-spacing: .3em;
+  text-transform: uppercase; color: var(--accent); font-weight: 700;
+  margin: 30px 0 6px; padding: 0;
 }
 .c-lead {
-  margin: 8px 0 0 -0.05em;
-  font-size: clamp(44px, 11.5vw, 170px);
-  line-height: 0.98; letter-spacing: -0.03em;
+  margin: 4px 0 0 -0.04em;
+  font-size: clamp(42px, 11vw, 160px);
+  line-height: 0.98; letter-spacing: -0.05em;
 }
-.c-lead .c-serif { font-family: var(--serif); font-weight: 900; }
-.c-lead .c-black { font-family: var(--sans); font-weight: 700; letter-spacing: -0.05em; }
+.c-lead .c-serif, .c-lead .c-black { font-family: var(--sans); font-weight: 900; }
 .c-lead .c-red { color: var(--accent); }
 .c-sub {
-  max-width: 44ch; color: var(--ink-soft); font-size: clamp(15px, 2.2vw, 18px);
-  margin: 26px 0 0;
+  max-width: 44ch; color: var(--ink-soft); font-size: clamp(14px, 2vw, 16px);
+  margin: 22px 0 0; line-height: 1.75;
 }
 .c-stamp {
-  display: inline-block; margin: 30px 0 40px;
-  transform: rotate(-2deg);
-  border: 2px solid var(--accent); color: var(--accent);
-  font-family: var(--mono); font-size: 12px; letter-spacing: .22em; text-transform: uppercase;
+  display: inline-block; margin: 24px 0 34px;
+  background: #000; color: #fff;
+  font-family: var(--mono); font-size: 11px; font-weight: 700;
+  letter-spacing: .24em; text-transform: uppercase;
   padding: 8px 14px;
 }
 
-/* ---------- 分類 chip：黑框大寫 ---------- */
-.filter { border-bottom: 4px solid var(--ink); }
+/* ---------- 分類 chip ---------- */
+.filter { border-bottom: 3px solid #000; }
 .chip {
-  border: 2px solid var(--ink); color: var(--ink);
-  font-weight: 700; letter-spacing: .06em;
+  border: 2px solid #000; color: #000;
+  font-weight: 700; letter-spacing: .04em;
 }
-.chip:hover { background: var(--ink); color: var(--paper); }
+.chip:hover { background: #000; color: #fff; }
 .chip[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: #fff; }
+.chip small { opacity: 1; color: inherit; }
 
-/* ---------- 文章流：期刊編號＋巨字標＋反白 hover ---------- */
+/* ---------- 文章流：索引式、密、紅色系統 ---------- */
 .feed { counter-reset: art; }
-.feed .card { counter-increment: art; position: relative; border-top: 3px solid var(--ink); }
+.feed .card {
+  counter-increment: art; position: relative;
+  border-top: 2px solid #000;
+  padding: 18px 0 22px;
+}
 .feed .card::after {
-  content: "No." counter(art, decimal-leading-zero);
-  position: absolute; right: 0; top: 14px;
-  font-family: var(--mono); font-size: 12px; letter-spacing: .2em;
-  color: var(--accent);
+  content: counter(art, decimal-leading-zero);
+  position: absolute; right: 0; top: 12px;
+  font-family: var(--mono); font-size: 12px; font-weight: 700;
+  letter-spacing: .12em; color: var(--accent);
 }
 .card__title {
-  font-family: var(--sans); font-weight: 700;
-  letter-spacing: -0.035em; line-height: 1.04;
-  font-size: clamp(24px, 4.4vw, 38px);
+  font-family: var(--sans); font-weight: 900;
+  letter-spacing: -0.04em; line-height: 1.02;
+  font-size: clamp(22px, 4vw, 34px);
 }
+.card--feature { padding: 26px 0 30px; }
 .card--feature .card__title {
-  font-size: clamp(36px, 8.5vw, 88px); line-height: 0.99; letter-spacing: -0.045em;
+  font-size: clamp(34px, 8vw, 84px); line-height: 0.98; letter-spacing: -0.05em;
   max-width: none;
 }
-.card:hover .card__title { text-decoration: none; color: var(--accent); }
-.card__tag { background: var(--ink); color: var(--paper); font-weight: 700; }
-.card__meta .byline { color: var(--accent); }
-
-/* 不對稱：偶數卡的文字往右推，破掉整齊格線 */
-@media (min-width: 900px) {
-  .feed .card:nth-child(even) .card__body { transform: translateX(4vw); }
-  .feed .card:nth-child(3n) .card__title { font-style: italic; font-family: var(--serif); font-weight: 900; letter-spacing: -0.01em; }
+.card:hover .card__title {
+  text-decoration: underline; text-decoration-color: var(--accent);
+  text-decoration-thickness: 4px; text-underline-offset: 6px;
 }
+.card__sub { font-size: 14px; color: var(--ink-soft); }
+.card__meta {
+  font-family: var(--mono); font-size: 11px; letter-spacing: .1em;
+  text-transform: uppercase; color: var(--accent);
+}
+.card__meta .byline { color: var(--accent); font-weight: 700; }
+.card__tag { background: #000; color: #fff; font-weight: 700; }
 
-/* ---------- 頁尾同語言 ---------- */
-.site-footer { border-top: 4px solid var(--ink); }
+/* ---------- 頁尾 ---------- */
+.site-footer { border-top: 3px solid #000; }
+.fcol a:hover { color: var(--accent); }
