@@ -1,0 +1,93 @@
+/* =========================================================
+   ARKKO — Theme C「狂放編輯台」
+   概念：歐陸獨立誌 — 超大字標貼邊、不對稱、粗黑框線、
+   跑馬燈、期刊編號、反白 hover。紙感底色不變、信號紅放大膽。
+   demo 用：疊在 style.css 之後載入。
+   ========================================================= */
+
+/* ---------- 跑馬燈 ---------- */
+.ticker {
+  background: var(--ink); color: var(--paper);
+  overflow: hidden; white-space: nowrap;
+  border-bottom: 4px solid var(--accent);
+}
+.ticker__inner {
+  display: inline-block; padding: 9px 0;
+  font-family: var(--mono); font-size: 11px;
+  letter-spacing: .32em; text-transform: uppercase;
+  animation: tick 22s linear infinite;
+}
+@keyframes tick { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+/* ---------- 頁首加重 ---------- */
+.site-header { border-bottom: 4px solid var(--ink); }
+.brand__img { height: 38px; }
+.nav a { font-weight: 700; letter-spacing: .1em; text-transform: uppercase; font-size: 12px; }
+.nav__cta { border-width: 2px; }
+
+/* ---------- 狂放 masthead ---------- */
+.masthead { border-bottom: 4px solid var(--ink); }
+.c-kicker {
+  font-family: var(--mono); font-size: 12px; letter-spacing: .3em;
+  text-transform: uppercase; color: var(--ink);
+  margin: 34px 0 10px; border-left: 6px solid var(--accent); padding-left: 12px;
+}
+.c-lead {
+  margin: 8px 0 0 -0.05em;
+  font-size: clamp(44px, 11.5vw, 170px);
+  line-height: 0.98; letter-spacing: -0.03em;
+}
+.c-lead .c-serif { font-family: var(--serif); font-weight: 900; }
+.c-lead .c-black { font-family: var(--sans); font-weight: 700; letter-spacing: -0.05em; }
+.c-lead .c-red { color: var(--accent); }
+.c-sub {
+  max-width: 44ch; color: var(--ink-soft); font-size: clamp(15px, 2.2vw, 18px);
+  margin: 26px 0 0;
+}
+.c-stamp {
+  display: inline-block; margin: 30px 0 40px;
+  transform: rotate(-2deg);
+  border: 2px solid var(--accent); color: var(--accent);
+  font-family: var(--mono); font-size: 12px; letter-spacing: .22em; text-transform: uppercase;
+  padding: 8px 14px;
+}
+
+/* ---------- 分類 chip：黑框大寫 ---------- */
+.filter { border-bottom: 4px solid var(--ink); }
+.chip {
+  border: 2px solid var(--ink); color: var(--ink);
+  font-weight: 700; letter-spacing: .06em;
+}
+.chip:hover { background: var(--ink); color: var(--paper); }
+.chip[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: #fff; }
+
+/* ---------- 文章流：期刊編號＋巨字標＋反白 hover ---------- */
+.feed { counter-reset: art; }
+.feed .card { counter-increment: art; position: relative; border-top: 3px solid var(--ink); }
+.feed .card::after {
+  content: "No." counter(art, decimal-leading-zero);
+  position: absolute; right: 0; top: 14px;
+  font-family: var(--mono); font-size: 12px; letter-spacing: .2em;
+  color: var(--accent);
+}
+.card__title {
+  font-family: var(--sans); font-weight: 700;
+  letter-spacing: -0.035em; line-height: 1.04;
+  font-size: clamp(24px, 4.4vw, 38px);
+}
+.card--feature .card__title {
+  font-size: clamp(36px, 8.5vw, 88px); line-height: 0.99; letter-spacing: -0.045em;
+  max-width: none;
+}
+.card:hover .card__title { text-decoration: none; color: var(--accent); }
+.card__tag { background: var(--ink); color: var(--paper); font-weight: 700; }
+.card__meta .byline { color: var(--accent); }
+
+/* 不對稱：偶數卡的文字往右推，破掉整齊格線 */
+@media (min-width: 900px) {
+  .feed .card:nth-child(even) .card__body { transform: translateX(4vw); }
+  .feed .card:nth-child(3n) .card__title { font-style: italic; font-family: var(--serif); font-weight: 900; letter-spacing: -0.01em; }
+}
+
+/* ---------- 頁尾同語言 ---------- */
+.site-footer { border-top: 4px solid var(--ink); }
