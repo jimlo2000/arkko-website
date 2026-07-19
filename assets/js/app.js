@@ -200,6 +200,54 @@
       tagOrientations(mount);
     }
     paint();
+    if (document.body.hasAttribute("data-wall")) setupWallLightbox(mount);
+  }
+
+  // 牆模式：點卡片先放大檢視（Pinterest 式），不直接跳文章頁
+  function setupWallLightbox(mount) {
+    mount.addEventListener("click", (e) => {
+      const card = e.target.closest("a.card");
+      if (!card || !mount.contains(card)) return;
+      const id = new URL(card.href, location.href).searchParams.get("id");
+      const a = ARTICLES.find((x) => x.id === id);
+      if (!a) return; // 找不到就走原本的跳頁
+      e.preventDefault();
+      openPin(a, card.href);
+    });
+  }
+
+  function openPin(a, href) {
+    const c = catMap[a.category];
+    const overlay = document.createElement("div");
+    overlay.className = "pin";
+    overlay.innerHTML = `
+      <div class="pin__box" role="dialog" aria-modal="true">
+        <button class="pin__close" aria-label="關閉">×</button>
+        <div class="pin__media">${cover(a)}</div>
+        <div class="pin__info">
+          <span class="pin__cat">${esc(c ? c.label : "")}</span>
+          <h2 class="pin__title">${esc(a.title)}</h2>
+          ${a.subtitle ? `<p class="pin__sub">${esc(a.subtitle)}</p>` : ""}
+          ${a.excerpt ? `<p class="pin__excerpt">${esc(a.excerpt)}</p>` : ""}
+          <div class="pin__meta">
+            <span class="byline">${esc(a.author || "")}</span>
+            <span>${esc(fmtDate(a.date))}</span><span>${esc(a.read || "")}</span>
+          </div>
+          <a class="btn pin__read" href="${href}">閱讀全文</a>
+        </div>
+      </div>`;
+    const close = () => {
+      overlay.remove();
+      document.body.style.overflow = "";
+      document.removeEventListener("keydown", onKey);
+    };
+    const onKey = (ev) => { if (ev.key === "Escape") close(); };
+    overlay.addEventListener("click", (ev) => {
+      if (ev.target === overlay || ev.target.closest(".pin__close")) close();
+    });
+    document.addEventListener("keydown", onKey);
+    document.body.appendChild(overlay);
+    document.body.style.overflow = "hidden";
   }
 
   // 讀取每張封面圖的長寬，標記直式/橫式/方形——

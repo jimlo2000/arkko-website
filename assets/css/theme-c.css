@@ -143,6 +143,49 @@
   .feed .card[data-orient="portrait"] .card__body { padding: 48px 14px 14px; }
 }
 
+/* ---------- Pinterest 式放大檢視卡 ---------- */
+.pin {
+  position: fixed; inset: 0; z-index: 200;
+  background: rgba(0,0,0,.62);
+  display: grid; place-items: center;
+  padding: 16px; overflow-y: auto;
+}
+.pin__box {
+  position: relative; background: #fff; border-radius: 24px;
+  width: 100%; max-width: 920px; max-height: 92vh;
+  overflow-y: auto; display: grid;
+}
+@media (min-width: 860px) {
+  .pin__box { grid-template-columns: 1.15fr 1fr; overflow: hidden; }
+  .pin__media { max-height: 92vh; overflow: hidden; }
+  .pin__media img, .pin__media .ph { height: 100%; object-fit: cover; }
+}
+.pin__media img { width: 100%; height: auto; display: block; }
+.pin__media .ph { aspect-ratio: 4/3; }
+.pin__close {
+  position: absolute; right: 14px; top: 10px; z-index: 2;
+  width: 40px; height: 40px; border: 0; border-radius: 50%;
+  background: rgba(255,255,255,.92); color: #000;
+  font-size: 26px; line-height: 1; cursor: pointer; font-family: var(--sans);
+}
+.pin__close:hover { background: #efefef; }
+.pin__info { padding: 26px 26px 30px; display: flex; flex-direction: column; gap: 12px; }
+.pin__cat {
+  align-self: flex-start; background: #efefef; color: #111;
+  font-size: 12px; font-weight: 700; padding: 6px 12px; border-radius: 999px;
+}
+.pin__title { margin: 0; font-family: var(--sans); font-weight: 900; font-size: clamp(20px, 3vw, 30px); line-height: 1.2; letter-spacing: -0.02em; }
+.pin__sub { margin: 0; color: var(--ink-soft); font-size: 15px; line-height: 1.7; }
+.pin__excerpt { margin: 0; color: var(--muted); font-size: 14px; line-height: 1.8; }
+.pin__meta { display: flex; gap: 14px; font-family: var(--mono); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+.pin__meta .byline { color: var(--accent); font-weight: 700; }
+.pin__read {
+  align-self: flex-start; margin-top: 6px;
+  background: var(--accent); border-color: var(--accent); color: #fff;
+  border-radius: 999px; padding: 12px 24px;
+}
+.pin__read:hover { background: #d40000; border-color: #d40000; color: #fff; }
+
 /* ---------- 頁尾 ---------- */
 .site-footer { border-top: 1px solid #eee; }
 .fcol a:hover { color: var(--accent); }
