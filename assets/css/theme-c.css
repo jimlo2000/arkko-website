@@ -47,8 +47,8 @@
 }
 .c-lead {
   margin: 4px 0 0 -0.04em;
-  font-size: clamp(42px, 11vw, 160px);
-  line-height: 0.98; letter-spacing: -0.05em;
+  font-size: clamp(42px, 9vw, 118px);
+  line-height: 1.0; letter-spacing: -0.05em;
 }
 .c-lead .c-serif, .c-lead .c-black { font-family: var(--sans); font-weight: 900; }
 .c-lead .c-red { color: var(--accent); }
@@ -74,53 +74,57 @@
 .chip[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: #fff; }
 .chip small { opacity: 1; color: inherit; }
 
-/* ---------- 文章流：sabukaru 式圖牆——標題壓在滿版圖上 ---------- */
-.feed { counter-reset: art; gap: 2px; }
+/* ---------- 文章流：Pinterest 瀑布流 ----------
+   每張圖保持原始比例（直圖自然長、橫圖自然短、零裁切），
+   圓角卡片、欄式堆疊；標題與資訊放圖下方。 */
+.feed {
+  columns: 2; column-gap: 10px; padding-top: 12px;
+}
+@media (min-width: 720px)  { .feed { columns: 3; column-gap: 14px; } }
+@media (min-width: 1100px) { .feed { columns: 4; column-gap: 16px; } }
 .feed .card {
-  counter-increment: art; position: relative;
-  display: block; padding: 0; border-top: 0;
-  overflow: hidden;
+  display: block; break-inside: avoid;
+  margin: 0 0 18px; padding: 0; border-top: 0;
+  position: relative; grid-template-columns: 1fr;
 }
-/* 圖片鋪滿卡片 */
+/* 圖：原比例、圓角 */
 .feed .card .card__media {
-  aspect-ratio: 4/3; width: 100%;
+  aspect-ratio: auto; width: 100%;
+  border-radius: 14px; overflow: hidden; background: #f0f0f0;
 }
-.feed .card .card__media img { width: 100%; height: 100%; object-fit: cover; }
-/* 文字壓上去：下緣漸暗保可讀 */
+.feed .card .card__media img { width: 100%; height: auto; display: block; transition: transform .4s; }
+.feed .card:hover .card__media img { transform: scale(1.03); }
+/* 沒放圖的文章：佔位圖給不同比例，維持瀑布節奏 */
+.feed .card .card__media .ph { aspect-ratio: 4/3; }
+.feed .card:nth-child(3n) .card__media .ph { aspect-ratio: 1/1; }
+.feed .card:nth-child(4n+1) .card__media .ph { aspect-ratio: 3/4; }
+/* 文字在圖下方（Pinterest 式說明） */
 .feed .card .card__body {
-  position: absolute; left: 0; right: 0; bottom: 0;
-  padding: 56px 20px 18px;
-  background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,.72) 100%);
-  color: #fff; gap: 6px;
+  position: static; background: none; color: var(--ink);
+  padding: 8px 4px 0; gap: 4px;
 }
 .card__title {
-  font-family: var(--sans); font-weight: 900; color: #fff;
-  letter-spacing: -0.02em; line-height: 1.08;
-  font-size: clamp(20px, 3.2vw, 30px);
+  font-family: var(--sans); font-weight: 700; color: var(--ink);
+  letter-spacing: -0.01em; line-height: 1.3;
+  font-size: 15px;
 }
-.card:hover .card__title {
-  text-decoration: underline; text-decoration-color: var(--accent);
-  text-decoration-thickness: 4px; text-underline-offset: 6px;
-}
-.card__sub { display: none; } /* 圖牆模式：副標收起，點進去再讀 */
+.card:hover .card__title { color: var(--accent); text-decoration: none; }
+.card__sub { display: none; }
 .card__meta {
-  font-family: var(--mono); font-size: 11px; letter-spacing: .12em;
-  text-transform: uppercase; color: #fff; opacity: .95;
+  font-family: var(--mono); font-size: 10px; letter-spacing: .08em;
+  text-transform: uppercase; color: var(--muted); margin-top: 0;
 }
 .card__meta .byline { color: var(--accent); font-weight: 700; }
-/* 分類標籤貼圖角＋紅色期刊編號 */
-.card__tag { background: var(--accent); color: #fff; font-weight: 700; }
-.feed .card::after {
-  content: counter(art, decimal-leading-zero);
-  position: absolute; right: 14px; top: 12px; z-index: 2;
-  font-family: var(--mono); font-size: 12px; font-weight: 700;
-  letter-spacing: .12em; color: #fff;
-  text-shadow: 0 1px 6px rgba(0,0,0,.5);
+/* 分類標籤貼在圖的左上角 */
+.card__tag {
+  background: rgba(255,255,255,.92); color: #000; font-weight: 700;
+  left: 10px; top: 10px; border-radius: 999px; padding: 5px 11px;
 }
 /* 精選大卡（獨立於圖牆上方、滿版）：同樣標題壓圖 */
 .card--feature {
   position: relative; display: block; padding: 0; overflow: hidden;
   grid-template-columns: 1fr;
+  border-radius: 18px; margin-top: 14px;
 }
 .card--feature .card__media { aspect-ratio: 16/10; width: 100%; }
 .card--feature .card__media img { width: 100%; height: 100%; object-fit: cover; }
