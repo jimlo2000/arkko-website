@@ -52,14 +52,18 @@
    每張圖保持原始比例（直圖自然長、橫圖自然短、零裁切），
    圓角卡片、欄式堆疊；標題與資訊放圖下方。 */
 .feed {
+  display: block; /* 蓋掉底層的 grid，讓瀑布分欄真正生效 */
   columns: 2; column-gap: 10px; padding-top: 12px;
 }
 @media (min-width: 720px)  { .feed { columns: 3; column-gap: 14px; } }
 @media (min-width: 1100px) { .feed { columns: 4; column-gap: 16px; } }
 .feed .card {
-  display: block; break-inside: avoid;
-  margin: 0 0 18px; padding: 0; border-top: 0;
+  /* inline-block＋固定寬：防止分欄引擎把卡片攔腰切斷（Safari 尤其會） */
+  display: inline-block; width: 100%;
+  break-inside: avoid; -webkit-column-break-inside: avoid; page-break-inside: avoid;
+  margin: 0 0 20px; padding: 0 0 6px; border-top: 0;
   position: relative; grid-template-columns: 1fr;
+  vertical-align: top;
 }
 /* 圖：原比例、圓角 */
 .feed .card .card__media {
@@ -117,30 +121,6 @@
 .card--feature .card__meta .byline { color: var(--accent); font-weight: 700; }
 @media (min-width: 720px) {
   .card--feature .card__media { aspect-ratio: 16/7; }
-}
-
-/* 桌機：Dazed 式不規則拼貼格——依每張照片的直式/橫式自動排列組合
-   （app.js 讀圖片長寬後在卡片上標 data-orient） */
-@media (min-width: 720px) {
-  .feed {
-    display: grid; grid-template-columns: repeat(4, 1fr);
-    grid-auto-rows: 20vw; grid-auto-flow: dense; gap: 2px;
-  }
-  .feed .card { grid-template-columns: 1fr; }
-  .feed .card .card__media { aspect-ratio: auto; height: 100%; }
-  /* 預設（判定中）：半寬 */
-  .feed .card { grid-column: span 2; }
-  /* 橫式照片：躺寬（2 欄 × 1 列） */
-  .feed .card[data-orient="landscape"] { grid-column: span 2; grid-row: span 1; }
-  /* 直式照片：站高（1 欄 × 2 列），完整展現直圖 */
-  .feed .card[data-orient="portrait"] { grid-column: span 1; grid-row: span 2; }
-  /* 方形照片：正方塊（1 欄 × 1 列） */
-  .feed .card[data-orient="square"] { grid-column: span 1; grid-row: span 1; }
-  /* 窄卡片標題縮小保持可讀 */
-  .feed .card[data-orient="portrait"] .card__title,
-  .feed .card[data-orient="square"] .card__title { font-size: clamp(16px, 1.8vw, 22px); }
-  .feed .card[data-orient="square"] .card__body { padding: 36px 14px 12px; }
-  .feed .card[data-orient="portrait"] .card__body { padding: 48px 14px 14px; }
 }
 
 /* ---------- Pinterest 式放大檢視卡 ---------- */
